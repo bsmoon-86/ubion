@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{{url_for('static', filename='js/dygragh.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dygragh.css')}}" />
+</head>
+<body>
+    <div id="graphdiv" style="width:100%;"></div>
+    <div id="graphdiv2"></div>
+    <script type="text/javascript">
+      g = new Dygraph(
+
+        // containing div
+        document.getElementById("graphdiv"),
+
+        // CSV or path to a CSV file.
+        "{{url_for('static', filename='train.csv')}}"
+
+      );
+      g2 = new Dygraph(
+
+        // containing div
+        document.getElementById("graphdiv2"),
+
+        // CSV or path to a CSV file.
+        "Date,Temperature, a\n" +
+        "2008-05-07,75, 50\n" +
+        "2008-05-08,70, 30\n" +
+        "2008-05-09,80, 15\n"
+
+      );
+    </script>
+</body>
+</html>
