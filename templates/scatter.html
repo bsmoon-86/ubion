@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+  <canvas id="myChart"></canvas>
+    <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Scatter Dataset',
+            data: {{result}},
+            backgroundColor: 'rgb(255, 99, 132)'
+          }],
+        },
+        options: {
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom'
+              }
+            }
+          }
+    });
+    </script>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>income_total</th>
+                <th>birth</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if result2 %}
+            {% for list in result2 %}
+                <tr>
+                    <td>{{list[0]}}</td>
+                    <td>{{list[1]}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2">데이터가 존재하지 않습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

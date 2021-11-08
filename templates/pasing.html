@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        function pasing(){
+            $("#setrows").submit(function(evt){
+                evt.preventDefault();
+                var rowPerPage = $('#data_no').val() * 1;
+                $('#nav').remove();
+                var $products = $('#products'); //변수는 products라는 ID값을 가진 태그를 지정
+
+                $products.after('<div id="nav">');
+
+                var $tr = $($products).find('tbody tr');
+                var rowTotals = $tr.length;
+
+                var pageTotal = Math.ceil(rowTotals/rowPerPage);
+
+                var i = 0;
+
+                for(; i < pageTotal; i++){
+                    $('<a href="#"></a>')
+                        .attr('rel', i)
+                        .html(i + 1)
+                        .appendTo('#nav')
+                }
+
+                $tr.addClass('off-screen')
+                    .slice(0, rowPerPage)
+                    .removeClass('off-screen');
+
+                var $pagingLink = $('#nav a');
+
+                $pagingLink.on('click', function(evt) {
+                    evt.preventDefault();
+                    var $this = $(this);
+                    if($this.hasClass('active')){
+                        return;
+                    }
+                    $pagingLink.removeClass('active');
+                    $this.addClass('active');
+
+                    var currPage = $this.attr('rel');
+                    var startItem = currPage * rowPerPage;
+                    var endItem = startItem + rowPerPage;
+
+                    $tr.css('opacity', '0.0')
+                        .addClass('off-screen')
+                        .slice(startItem, endItem)
+                        .removeClass('off-screen')
+                        .animate({opacity:1}, 300)
+                });
+                $pagingLink.filter(':first').addClass('active');
+            });
+            $('#setrows').submit();
+        }
+    </script>
+    <style>
+        form {
+            width : 500px;
+        }
+        table {
+            border-collapse : collapse;
+            margin-bottom : 10px;
+        }
+        th, td {
+            padding : 3px 10px;
+        }
+        .off-screen {
+            display : none;
+        }
+        #nav {
+            width : 500px;
+            text-align : center;
+        }
+        #nav a {
+            display : inline-block;
+            padding : 3px 5px;
+            margin-right : 10px;
+            font-family : Tahoma;
+            background : #ccc;
+            color : #000;
+            text-decoration : none;
+        }
+        #nav a.active {
+            background : #333;
+            color : #fff;
+        }
+    </style>
+    <script>
+    function graph(label){
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: label,
+                  datasets: [{
+                    label: 'My First Dataset',
+                    data: {{a}},
+                    backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                  }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    function canvas_display(){
+        $('#can').toggleClass('off-screen')
+    }
+    </script>
+</head>
+<body onload="pasing();graph({{b}});">
+    <div>
+        <form action="" id="setrows">
+            <select id="data_no">
+                <option value="5" selected>5개씩</option>
+                <option value="10">10개씩</option>
+                <option value="20">20개씩</option>
+            </select>
+            <input type="submit" value="갯수 변경">
+        </form>
+    </div>
+    <table id="products" border="1">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>cild_num</th>
+                <th>income_total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if result %}
+            {% for list in result %}
+                <tr>
+                    <td>{{list[0]}}</td>
+                    <td>{{list[1]}}</td>
+                    <td>{{list[2]}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">데이터가 존재하지 않습니다</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <div style="width:500px;" id="can">
+        <canvas id="myChart"></canvas>
+    </div>
+    <button onclick="canvas_display()">
+        chart display
+    </button>
+</body>
+</html>
