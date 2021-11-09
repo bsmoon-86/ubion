@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <input type="password" id="data_input">
+    <button id="bt1">Ajax_get</button>
+    <button id="bt2">Ajax_post</button>
+    <button id="bt3">getjson</button>
+    <p></p>
+    <script>
+        $('#bt1').click(function(){
+            $.ajax({
+                url : "/ajax_get",
+                data : {
+                    message : $('#data_input').val()
+                },
+                method : "GET",
+                dataType : "json"
+            })
+            .done(function(result){
+                alert(result[0].data1)
+            })
+            .fail(function(xhr, status, error){
+                alert(error)
+            })
+            .always(function(xhr, status){
+                $('p').text('요청이 완료되었습니다.')
+            })
+        })
+        $('#bt2').click(function(){
+            $.ajax({
+                url : "/ajax_post",
+                data : {
+                    message : $('#data_input').val()
+                },
+                method : "post",
+                dataType : "json"
+            })
+            .done(function(result){
+                alert(result[0].data1)
+            })
+            .fail(function(xhr, status, error){
+                alert(error)
+            })
+            .always(function(xhr, status){
+                $('p').text('요청이 완료되었습니다.')
+            })
+        })
+        $('#bt3').click(function(){
+        //getJSON(url, data, function)
+            $.getJSON("/get_json",
+                {
+                    "message" : $('#data_input').val()
+                },
+                function(result, status){
+                    alert(result[0][1]);
+                    $('p').text(status)
+                }
+            )
+        })
+    </script>
+</body>
+</html>
+
+<!--
+json -> json = [{"name" : "moon",
+         "phone" : "01053869303" ...
+        },
+        {"name" : "value",
+         "phone" : "value2" ...},
+        {"name" : "value",
+         "phone" : "value2" ...}]
+
+        moon이라는 문자열 출력을 하려면
+        json[0][0]->python
+        json[0].name -> js
+
+sql 데이터는 -> json [{key : value}]
+-->
