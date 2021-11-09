@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+        div {
+            border : 2px blue solid;
+            margin : 2px;
+            padding : 2px;
+        }
+        p {
+            background-color: yellow;
+            margin : 2px;
+            padding : 2px;
+        }
+        strong {
+            color : red;
+        }
+        .test{
+            background-color : green;
+        }
+    </style>
+</head>
+<body>
+    <span class="test">Span Text</span>
+    <strong class="test">Strong Text</strong>
+    <span>Another</span>
+    <script>
+        $('span.test').wrap('<div><div><div><p><em><b></b></em></p></div></div></div>');
+    </script>
+</body>
+</html>
