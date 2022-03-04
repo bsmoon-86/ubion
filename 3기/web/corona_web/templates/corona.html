@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <table class="table table-dark table-hover">
+        <tr>
+            <th>No</th>
+            <th>등록일시</th>
+            <th>사망자</th>
+            <th>확진자</th>
+            <th>누적 의심자</th>
+            <th>누적 확진률</th>
+            <th>일일 확진자</th>
+            <th>일일 사망자</th>
+        </tr>
+        {% for i in range(0, cnt, 1) %}
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{result["등록일시"][i]}}</td>
+            <td>{{result["사망자"][i]}}</td>
+            <td>{{result["확진자"][i]}}</td>
+            <td>{{result["누적 의심자"][i]}}</td>
+            <td>{{result["누적확진률"][i]}}</td>
+            <td>{{result["일일 확진자"][i]}}</td>
+            <td>{{result["일일 사망자"][i]}}</td>
+            <!-- 
+                main.py  cnt 부분 변경
+                cnt = len(corona_dict["등록일시"].keys())
+            -->
+        </tr>
+        {% endfor %}
+    </table>
+    
+
+</body>
+</html>
