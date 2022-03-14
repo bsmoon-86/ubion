@@ -38,22 +38,40 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form action="/login" method="POST">
+  <form action="/update" method="post">
     <img class="mb-4" src="{{url_for('static', filename='img/bootstrap-logo.svg')}}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 fw-normal">회원 가입</h1>
 
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" name="_id">
+      <input type="text" class="form-control" id="floatingInput" name="_id" value="{{info['ID']}}" readonly>
       <label for="floatingInput">ID</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" name="_password">
+      <input type="password" class="form-control" id="floatingPassword" name="_password" value="{{info['password']}}">
       <label for="floatingPassword">Password</label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingName" name="_name" value="{{info['name']}}">
+      <label for="floatingName">이름</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingPhone" name="_phone" value="{{info['phone']}}">
+      <label for="floatingPhone">휴대전화</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floating" name="_ads" value="{{info['ads']}}">
+      <label for="floating">주소</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" id="floatingGender" name="_gender" value="{{info['gender']}}">
+      <label for="floatingGender">성별</label>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control" id="floatingAge" name="_age" value="{{info['age']}}">
+      <label for="floatingAge">나이</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">회원 정보 수정</button>
   </form>
-  <br>
-  <a class="w-100 btn btn-lg btn-secondary" href="/signup">회원 가입</a>
 </main>
 
 
