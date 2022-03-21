@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <button id="bt3">Ajax_get</button>
+    <div id = "t"></div>
+    <script>
+        $(document).ready(function() {
+            setInterval(function() {
+                $.getJSON("/data",
+                function(result, status){
+                    first_html = `
+                                    <table>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>password</th>
+                                            <th>name</th>
+                                            <th>ads</th>
+                                            <th>age</th>
+                                            <th>gender</th>
+                                            <th>redit_date</th>
+                                        </tr>
+                                `
+                    end_html = `</table>`
+                    for_html = ""
+                    for(list of result){
+                        for_html += `
+                                <tr>
+                                    <td>`+list["ID"]+`</td>
+                                    <td>`+list["password"]+`</td>
+                                    <td>`+list["name"]+`</td>
+                                    <td>`+list["ads"]+`</td>
+                                    <td>`+list["age"]+`</td>
+                                    <td>`+list["gender"]+`</td>
+                                    <td>`+list["redit_date"]+`</td>
+                                </tr>
+                        `
+                    }
+                    
+                    $('#t').html(first_html+for_html+end_html
+                        )
+                }
+                
+            )
+            }, 5000); // 5000ms(5초)가 경과하면 이 함수가 실행합니다.
+        }); 
+
+    </script>
+    
+</body>
+</html>
